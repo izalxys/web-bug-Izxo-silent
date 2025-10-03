@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>𝗜𝘇𝘅𝗼 𝘀𝗶𝗹𝗲𝗻𝘁</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+        <div class="container" id="loginForm">
+      <div class="input-wrap">
+        <input id="user" class="neon-input" type="text" placeholder="Username" autocomplete="off" />
+      </div>
+      <div class="input-wrap">
+        <input id="pass" class="neon-input" type="password" placeholder="Password" autocomplete="off" />
+      </div>
+
+      <button class="btn" id="btnLogin">LOGIN</button>
+      
+  <div class="container">
+    <h1>bug Menu Izxo</h1>
+    <img src="https://files.catbox.moe/ipoz62.jpg" class="logo"/>
+    <p>Select Target & Bug</p>
+    <input type="text" id="target" placeholder="Target number (e.g. +62 812...)">
+    <select id="bug-type">
+      <option>invis</option>
+      <option>force</option>
+      <option>bulldozer5GB</option>
+    </select>
+    <button id="sendBtn">▶ SEND BUG</button>
+  </div>
+  <script src="admin.js"></script>
+ // Simple client-side auth (for demo/testing only)
+    (function(){
+      const validUser = "IZAL";
+      const validPass = "IZAL12";
+
+      const userEl = document.getElementById('user');
+      const passEl = document.getElementById('pass');
+      const btn = document.getElementById('btnLogin');
+      const form = document.getElementById('loginForm');
+      const welcome = document.getElementById('welcome');
+      const who = document.getElementById('who');
+
+      // Optional: focus username
+      userEl.focus();
+
+      btn.addEventListener('click', tryLogin);
+      // allow Enter key
+      [userEl, passEl].forEach(el=>{
+        el.addEventListener('keydown', function(e){
+          if(e.key === 'Enter') tryLogin();
+        });
+      });
+
+      function tryLogin(){
+        const u = (userEl.value || "").trim();
+        const p = (passEl.value || "").trim();
+
+        // Quick validation
+        if(!u || !p){
+          flash("Sila masukkan username & password");
+          return;
+        }
+
+        if(u === validUser && p === validPass){
+          // success: show welcome panel
+          form.style.display = 'none';
+          who.textContent = u;
+          welcome.style.display = 'block';
+          // small nice effect
+          document.body.style.transition = 'background 0.6s';
+          document.body.style.background = 'radial-gradient(circle at 50% 20%, rgba(18,209,223,0.02), transparent 20%)';
+        } else {
+          flash("Username atau password salah");
+        }
+      }
+
+      // lightweight flash message
+      function flash(msg){
+        // create small floating message
+        const el = document.createElement('div');
+        el.textContent = msg;
+        el.style.position = 'fixed';
+        el.style.left = '50%';
+        el.style.transform = 'translateX(-50%)';
+        el.style.bottom = '36px';
+        el.style.padding = '10px 16px';
+        el.style.borderRadius = '10px';
+        el.style.background = 'rgba(0,0,0,0.6)';
+        el.style.color = '#e6fbff';
+        el.style.boxShadow = '0 6px 18px rgba(0,0,0,0.6)';
+        el.style.zIndex = 9999;
+        document.body.appendChild(el);
+        setTimeout(()=>{ el.style.transition = 'opacity 0.4s'; el.style.opacity = '0'; }, 1400);
+        setTimeout(()=> el.remove(), 2000);
+      }
+    })();
+</body>
+</html>
